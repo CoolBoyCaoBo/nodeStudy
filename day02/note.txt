@@ -1,0 +1,27 @@
+Node.js核心API
+
+URL问号之后的字符：称之为参数
+参数：需要有名字和内容，例如http://localhost:3000/?name=think，“name”为名字，“think”为值
+如果需要在后面再增加第二个参数或N个参数
+
+URL井号之后的字符：称之为锚记
+
+
+异步IO：（07_fs.js）
+N个人发起请求“http://127.0.0.1:3000/”，那么由于异步IO的原因，会出现同一时间N个同时进行任务
+
+
+1.本次学习了，node里面url（参数处理）模块，fs（文件处理）模块
+
+url.parse('req.url',true).query    //将访问后缀参数转换成对象供调用
+
+fs.readFile(path,options,callback);//异步异步地读取一个文件的全部内容
+
+fs.mkdir(path,[mode], callback) //异步的创建一个文件夹
+
+fs.stat(path, callback)    //异步的判断当前所加载的文件类型，callback回传两个参数(err,stats),通过stats.isDirectory()的值为true时为：文件夹，否则为文件
+
+fs.readdir(path,options,callback) //异步的读取一个目录的内容。 回调有两个参数 (err, files)，其中 files 是目录中不包括 '.' 和 '..' 的文件名的数组。
+
+//可选的 options 参数用于传入回调的文件名，它可以是一个字符串并指定一个字符编码，或是一个对象且由一个 encoding 属性指定使用的字符编码。 如果 encoding 设为 'buffer'，则返回的文件名会被作为 Buffer 对象传入。
+ 

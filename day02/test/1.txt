@@ -1,0 +1,5 @@
+[
+    {name:'caobo',age:'23',sex:'man'},
+    {name:'caobo1',age:'24',sex:'woman'}
+    {name:'huilin',age:'25',sex:'woman'}
+]
