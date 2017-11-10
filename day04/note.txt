@@ -1,0 +1,97 @@
+前：
+Http服务、路由知识、创建文件夹、检测文件
+
+
+单词：
+warn：警告
+error：错误
+not：没有
+found：找到/查找
+
+
+特别强调：require（NodeJS是Commomjs规范实现）和requireJS（AMD规范）没有关联，和seajs也没有半毛钱关系
+
+模块：
+一般都是一个JS文件一个模块，而多个JS文件之间是可以相互require的（也就是相互引用）,他们共同实现了一个大的功能
+
+在Node.js当中，一个JavaScript文件中定义的变量或函数，都只在这个当前的文件内有效，也可以理解为，每个JS文件都是一个闭包结构，所以当我们需要从此JS文件外部引用这些变量或函数的时候，必须使用exports对象进行对象的暴露，而调用者需用通过require()命名来引入这个JavaScript文件
+
+A文件 --require--> B文件  ---require--> C文件
+
+
+node_modules：
+这个文件夹并不一定在同级目录里，在上一级或上上级目录中都是可以运行的
+作用：一般都是用作存储项目需要引入的模块，同时也是用作来管理模块使用的
+我们的代码不建议写在node_modules文件夹下，原因是node_modules文件夹是自动生成的，其次在项目发布的时候，我们并不会把Node_modules这个文件夹发布，且我们处理打包的时候也会过滤掉这个文件夹（因为这个文件夹名字是固定的）
+
+
+
+NPM：
+英文全称：Node package manage
+这个NPM无需下载，当你下载Node的时候，就会自带有NPM
+NPM初始化：npm init
+    package name：选填，如不输入则默认为文件夹名称
+    version:选填，默认为1.0.0
+    description:选填，可以为空
+    entry point：入口文件，一般开发者自己配置的时候都会选择index.js，当我们启动的时候，可以通过npm start启动（不需要"Node filename.js"）
+
+我们安装需要依赖的模块通过：npm install 模块名
+那么我们一般情况下，还会遇到后面加上一个"-g"，这个"-g"表示global,表示全局安装
+npm install -g express    npm install expresss -g
+
+当我们通过install安装的时候，package.json文件会增加一个属性“dependencies”，这个属性表示项目依赖的模块，这个地方的作用在于，我们一般情况下由于Node_modules文件夹不会发布，而咱们下载过来的时候需要运行，那么可以通过“npm install”安装项目所依赖的模块
+
+npm install express --save-dev   可以简写为 npm install express -D
+
+查看npm命令:npm -l
+查看npm版本：npm -v或npm --v
+运行项目：npm run projectName
+
+
+
+POST请求：
+相比get请求，post请求稍微麻烦一点点。NodeJS认为，使用post请求一般是数据量相对get请求而言较多，为了追求效率，把数据拆分成了多个小的数据模块（chunk，然后通过特定的事件，把这些小数据模块有序的传递给回调函数
+
+
+
+加载文件为例：读取大文件，就会时间久，而小文件自然就快，
+
+
+一米宽的门，如果人是一米则只能过一人，如果人是50公分，则可以过两个人
+
+
+1.node第三方库插件的引人和用法
+2.关于post的请求的相关参数的获取以及node的是如何处理大容量的post请求的原理
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

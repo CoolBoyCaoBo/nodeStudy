@@ -1,0 +1,14 @@
+{
+  "name": "day04",
+  "version": "1.0.0",
+  "description": "node project init",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "CoolBoy_CaoBo",
+  "license": "ISC",
+  "devDependencies": {
+    "silly-datetime": "^0.1.2"
+  }
+}
