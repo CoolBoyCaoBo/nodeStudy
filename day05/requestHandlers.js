@@ -1,9 +1,11 @@
 let requestHandlerOptions = {
-    start:function(){
+    start:function(res){
         console.log("request hander ' start ' was called" );
+        res.write("this is start page");
     },
-    upload:function(){
-        console.log("request hander ' start ' was called" );
+    upload:function(res){
+        console.log("request hander ' upload ' was called" );
+        res.write("this is upload page");
     }
 };
 
