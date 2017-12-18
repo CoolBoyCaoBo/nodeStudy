@@ -1,0 +1,14 @@
+{
+  "name": "node-study-07",
+  "version": "1.0.0",
+  "description": " form data file upload/down",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "CoolBoy_CaoBo",
+  "license": "ISC",
+  "devDependencies": {
+    "formidable": "^1.1.1"
+  }
+}
