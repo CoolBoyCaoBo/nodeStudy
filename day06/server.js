@@ -16,7 +16,7 @@ const serverStart = (route)=>{
         //res.writeHead(200,{'Content-type':'text/html;charset=UTF-8'});
         route(pathName,handle,res);
         //res.end();
-    }).listen(3000,'192.168.4.101',()=>{
+    }).listen(3000,()=>{
         console.log('server has run at port 3000');
     });
 };

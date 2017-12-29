@@ -4,11 +4,15 @@
   "description": " form data file upload/down",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "server": "node main.js"
   },
   "author": "CoolBoy_CaoBo",
   "license": "ISC",
   "devDependencies": {
     "formidable": "^1.1.1"
+  },
+  "dependencies": {
+    "silly-datetime": "^0.1.2"
   }
 }
