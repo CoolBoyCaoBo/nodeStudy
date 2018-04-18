@@ -1,1 +1,15 @@
 express 入门和相关核心api
+
+    安装：
+        1.$ mkdir myapp   $ cd myapp
+        2.$ npm init
+        3.entry point: (index.js)
+        4.$ npm install express --save //接下来安装 Express 并将其保存到依赖列表中：
+        5.$ npm install express //如果只是临时安装 Express，不想将它添加到依赖列表中，只需略去 --save 参数即可：
+
+    express应用生成器
+        1.安装：npm install express-generator -g
+        2.列出所有可用的命令行选项：express -h
+        3.创建一个应用：express <projectname>
+        4.安装所有依赖包:npm install
+        5.启动：set DEBUG=myapp & npm start
