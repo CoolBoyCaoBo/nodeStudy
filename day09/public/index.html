@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>天气预报</title>
+<!-- for-mobile-apps -->
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="keywords" content="Sunlight Weather Widget Responsive web template, Bootstrap Web Templates, Flat Web Templates, Andriod Compatible web template, 
+Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyErricsson, Motorola web design" />
+<script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false);
+		function hideURLbar(){ window.scrollTo(0,1); } </script>
+<!-- //for-mobile-apps -->
+<link href="css/style.css" rel="stylesheet" type="text/css" media="all" />
+<link href='//fonts.googleapis.com/css?family=Nunito:400,300,700' rel='stylesheet' type='text/css'>
+<script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+<script type="text/javascript" src="js/jquery-3.3.1.min.js"></script>
+</head>
+<body>
+	<!-- main -->
+		<div id="app" v-cloak class="main">
+			<h1>天气预报</h1>
+			<div class="main-grid1">
+				<div class="main-grid1-pos">
+					<span> </span>
+				</div>
+				<h2>28<sup class="degree">°</sup><span>F</span></h2>
+				<p>{{today.city}}</p>
+				<div class="main-grid1-grids">
+					<div class="main-grid1-grid-left">
+						<p>{{today.temperature}}</p>
+						<h3>多云</h3>
+					</div>
+					<div class="main-grid1-grid-right">
+						<p>{{today.date_y}}</p>
+					</div>
+					<div class="clear"> </div>
+				</div>
+			</div>
+			<div class="main-grid2">
+				<div class="main-grid2-left">
+					<img src="imgs/cloudy.png" alt=" " class="img-responsive" />
+					<p>Sun <span>16 / 6<sup class="degree">°</sup></span></p>
+				</div>
+				<div class="main-grid2-left">
+					<img src="imgs/cloudy.png" alt=" " class="img-responsive" />
+					<p>Mon <span>18 / 6<sup class="degree">°</sup></span></p>
+				</div>
+				<div class="main-grid2-left">
+					<img src="imgs/cloudy.png" alt=" " class="img-responsive" />
+					<p>Tue <span>16 / 4<sup class="degree">°</sup></span></p>
+				</div>
+				<div class="main-grid2-left">
+					<img src="imgs/2.png" alt=" " class="img-responsive" />
+					<p>Sat <span>11 / 7<sup class="degree">°</sup></span></p>
+				</div>
+				<div class="clear"> </div>
+			</div>
+			<div class="footer">
+				<p>Copyright © 2015 Sunlight Weather Widget. All rights reserved | Design by <a href="http://w3layouts.com">W3layouts</a></p>
+			</div>
+		</div>
+
+		<script type="text/javascript">
+			var Weather = new Vue({
+				el:'#app',
+				data:{
+					today:'',
+				},
+				created:function(){
+					this.dataInit('合肥');
+				},
+				methods:{
+					dataInit:function(cityName){
+						var _this = this;
+						$.get( "/citis/foods/list", {cityName:cityName}).done(function(res){
+							console.log(res.result);
+							_this.today = res.result.today;
+						});
+					}
+				},
+				mounted:function(){
+
+				}
+			});
+		</script>
+</body>
+</html>

@@ -11,6 +11,7 @@
   "dependencies": {
     "express": "^4.16.3",
     "formidable": "^1.2.1",
+    "request": "^2.85.0",
     "silly-datetime": "^0.1.2"
   }
 }

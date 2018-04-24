@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>测试天气接口</title>
+    <link rel="stylesheet" href="js/bootstrap/css/bootstrap.min.css">
+</head>
+<body>
+    <nav class="navbar navbar-default">
+        <div class="container-fluid" style="text-align: center">
+            <h3>当前查询城市为：<span id="codeId">暂无</span> </h3>
+        </div>
+    </nav>
+    <div id="app" class="container-fluid">
+        <input type="text" id="textVal" class="form-control" placeholder="输入需要查询天气的城市名称">  
+        <button type="button" class="btn btn-primary" style="margin-top: 16px;" id="checkInfo">查询</button>
+        <div id="result">
+             
+        </div>
+    </div>
+    <script type="text/javascript" src="js/jquery-3.3.1.min.js"></script>
+    <script type="text/javascript" src="js/bootstrap/js/bootstrap.min.js"></script>
+    <script type="text/javascript">
+        function getData(cityName){
+            $.ajax({
+                type:'get',
+                url: "/citis/foods/list",
+                data: {
+                    cityName:cityName 
+                },
+                dataType: 'json',
+            }).done(function(res1){
+                var res = res1;
+                console.log(res);
+                console.log(res.resultcode);
+                var htmlStr = '';
+                if(res.resultcode === '200'){
+                    htmlStr = '<p>今日天气详情：'+JSON.stringify(res.result.today)+'</p> <br> <p>今日空气质量：'+JSON.stringify(res.result.sk)+'</p> <br> <p>未来天气状况：'+JSON.stringify(res.result.future)+'</p>';
+                    $('#result').html(htmlStr);
+                    $('#codeId').html(res.result.today.city);
+                }else{
+                    htmlStr = '<p>查询失败，失败原因：'+res.reason+' <br> 错误代码:'+res.resultcode+'</p>';
+                    $('#result').html(htmlStr);
+                    $('#codeId').html('查询失败~');
+                }
+            });
+        }
+        $('#checkInfo').on('click',function(){
+            $('#result').html('等待中...');
+            var cityName = $('#textVal').val();
+            getData(cityName);
+        });
+    </script>
+</body>
+</html>

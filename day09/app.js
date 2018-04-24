@@ -15,6 +15,8 @@ app.get('/',router.showIndex);
 app.get('/:albumName',router.showPhotoList);
 app.get('/photoUp',router.showPhotoUp);
 
+app.get('/citis/foods/list',router.citisFoodsList)
+
 app.post('/filesUp',router.filtersUp)
 app.listen(3000,()=>{
     console.log('server is running at port 3000');
