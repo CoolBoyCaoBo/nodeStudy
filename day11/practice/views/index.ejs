@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>上传数据</title>
+    <link rel="stylesheet" href="static/bootstrap/css/bootstrap.min.css">
+    <script src="static/js/jquery-3.3.1.min.js"></script>
+    <script src="static/bootstrap/js/bootstrap.min.js"></script>
+</head>
+<body>
+    <h3>hello this is index page</h3>
+    <div class="container">
+        <form action="/registe" method="get">
+            <div class="form-group">
+                <label for="exampleInputEmail1">sid:</label>
+                <input type="text" name="sid" class="form-control" id="exampleInputEmail1" placeholder="sid of student">
+            </div>
+            <div class="form-group">
+              <label for="exampleInputEmail1">user name:</label>
+              <input type="text" name="name" class="form-control" id="exampleInputEmail1" placeholder="name">
+            </div>
+            <div class="form-group">
+              <label for="exampleInputPassword1">age:</label>
+              <input type="text" name="age" class="form-control" id="exampleInputPassword1" placeholder="age">
+            </div>
+            <div class="form-group">
+              <label for="exampleInputFile">gender:</label>
+              <label>men <input type="radio" value="men" name="sex"></label>
+              <label>women <input type="radio" value="women" name="sex"></label>
+            </div>
+            <button type="submit" class="btn btn-default">Submit</button>
+        </form>
+
+
+    </div>
+</body>
+</html>

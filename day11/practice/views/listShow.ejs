@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>插入数据展示</title>
+    <link rel="stylesheet" href="static/bootstrap/css/bootstrap.min.css">
+    <script type="text/javascript" src="static/js/jquery-3.3.1.min.js"></script>
+    <script type="text/javascript" src="static/bootstrap/js/bootstrap.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <% if(state === 0){ %>
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    sorry...数据查询是吧了呢...
+                </div>
+            </div>
+        <% } else if(state === -1){%>
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    sorry...目前数据库还没有查到你添加过数据呢...
+                </div>
+            </div>
+        <%} else {%>
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>学号</th>
+                        <th>姓名</th>
+                        <th>年龄</th>
+                        <th>性别</th>
+                        <th>操作</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% for(var i = 0; i < result.length; i++) { %>
+                        <tr>
+                            <td><%=result[i].sid%></td>
+                            <td><%=result[i].name%></td>
+                            <td><%=result[i].age%></td>
+                            <td><%=result[i].sex%></td>
+                            <td> 
+                                <button data-toggle="modal" data-target=".modifyAlert" type="button" class="btn btn-primary btn-sm modify" data-type='0' data-sid="<%=result[i].sid%>">修改</button>
+                                <button type="button" data-toggle="modal" data-target=".deletAlert" class="btn btn-primary btn-sm modify" data-type='1'  data-sid="<%=result[i].sid%>">删除</button>
+                            </td>
+                        </tr>
+                    <%}%>  
+                </tbody>
+            </table>
+        <% }%>
+    </div>
+
+    <div class="modal fade bs-example-modal-lg modifyAlert" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content" style="padding: 20px;">
+                <form id="form_id">
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">user name:</label>
+                        <input type="text" name="name" class="form-control" id="name" placeholder="name">
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputPassword1">age:</label>
+                        <input type="text" name="age" class="form-control" id="age" placeholder="age">
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputFile">gender:</label>
+                        <label>men <input type="radio" value="men" name="sex"></label>
+                        <label>women <input type="radio" value="women" name="sex"></label>
+                    </div>
+                    <div style="width: 100%;text-align: center">
+                        <div class="btn btn-primary btn-lg" data-dismiss="modal" style="margin-right:20px">取消</div><div style="margin-left:20px" data-sid=""  id="modifySureBtn" class="btn btn-primary btn-lg">确定</div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade bs-example-modal-sm deletAlert" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
+        <div class="modal-dialog modal-sm" role="document">
+            <div class="modal-content" style="padding: 20px;">
+                <p>您确认删除此条数据？</p>
+                <div style="width: 100%;text-align: center">
+                    <div class="btn btn-primary btn-sm" data-dismiss="modal" style="margin-right:20px">再考虑下</div><div style="margin-left:20px" data-sid="" class="btn btn-primary btn-sm" id="deletSureBtn">确定</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade bs-example-modal-sm succedAlert" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
+        <div class="modal-dialog modal-sm" role="document">
+            <div class="modal-content" style="padding: 20px;">
+                <p id="alertP"></p>
+                <div style="width: 100%;text-align: center">
+                    <div style="margin-left:20px" data-dismiss="modal" class="btn btn-primary btn-sm">刷新</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript">
+        (function(){
+            var mongoose = { //定义全局盒子
+                
+            };
+            $('.modify').click(function(){
+                var _dom = $(this);
+                var sid = _dom.attr('data-sid')
+                if(_dom.attr('data-type') === '0'){
+                    $('#modifySureBtn').attr('data-sid',sid);
+                }else{
+                    $('#deletSureBtn').attr('data-sid',sid);
+                }
+            });
+            mongoose.modify = function(query,sid,type){
+                $.ajax({
+                    url:'/modify?'+query,
+                    type:'get',
+                    data: {
+                        sid:sid,
+                        type:type
+                    },
+                    timeout: 30000,
+                    dataType: 'json',
+                    beforeSend:function(){
+                        
+                    },
+                    error:function(error){
+                        if(type === '1'){
+                            $('.deletAlert').modal('hide');
+                            $('.deletAlert').on('hidden.bs.modal', function (e) {
+                                $(".succedAlert").modal('show');
+                                $("#alertP").html('服务器访问异常...');
+                            });
+                        }else{
+                            $('.modifyAlert').modal('hide');
+                            $('.modifyAlert').on('hidden.bs.modal', function (e) {
+                                $(".succedAlert").modal('show');
+                                $("#alertP").html('服务器访问异常...');
+                            });
+                        }
+                    },
+                    success:function(res){
+                        if(type === '1'){
+                            $('.deletAlert').modal('hide');
+                            $('.deletAlert').on('hidden.bs.modal', function (e) {
+                                $(".succedAlert").modal('show');
+                                $("#alertP").html(res.result.message);
+                            });
+                        }else{
+                            $('.modifyAlert').modal('hide');
+                            $('.modifyAlert').on('hidden.bs.modal', function (e) {
+                                $(".succedAlert").modal('show');
+                                $("#alertP").html(res.result.message);
+                            });
+                        }
+                    }
+                })
+            }
+            $('.succedAlert').on('hidden.bs.modal', function (e) {
+                window.location.reload();
+            });
+            $('#modifySureBtn').click(function(){
+                var _dom = $(this);
+                var a = $('#form_id').serialize();
+                var a1 = $('#form_id').serializeArray();
+                if(a1[0].value && a1[1].value && typeof(a1[2])!=='undefined'){
+                    mongoose.modify(a,_dom.attr('data-sid'),'0');
+                }
+            });
+
+            $('#deletSureBtn').click(function(){
+                var _dom = $(this);
+                var a = $('#form_id').serialize();
+                mongoose.modify(a,_dom.attr('data-sid'),'1');
+            });
+        })();
+    </script>
+</body>
+</html>
