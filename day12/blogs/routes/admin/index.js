@@ -14,6 +14,12 @@ router.use("/",(req,res,next) => {
 });
 
 router.get("/",(req,res,next) => {
+    var user={
+        name:"CaoBo1",
+        age:"26",
+        address:"hf"
+    }
+    req.session.name = user.name;
     res.send("这里访问的是管理员首页");
 });
 
