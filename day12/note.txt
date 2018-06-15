@@ -1,0 +1,2 @@
+基于 node+express+ejs  的blog系统。初步完成用户注册流程
+todo:用户登录，用户退出，blog首页预览，blog文章增加

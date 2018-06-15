@@ -1,0 +1,17 @@
+mongodb 基本语法 了解 //注意本人本地mongodb的版本为：3.2.10 js的shell脚本目前还不支持es6的语法。
+
+goTask.js:mongo 运行js语法的shell脚本入门
+
+dbTest.js:db数据库两种插入方式的性能对比
+
+dbTest1.js:初识update修改器
+
+dbTest2.js:update数组修改器
+
+dbTest3.js:修改：状态返回与安全
+
+dbTest4.js:查询：find的不等修饰符
+
+dbTest4.js:查询：find的数组查询
+
+todo:构造百万级数据 索引入门 复合索引 全文索引 管理:用户的创建、删除与修改 管理：备份和还原 管理：图形界面管理（完结）
