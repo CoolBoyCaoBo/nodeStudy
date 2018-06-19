@@ -1,0 +1,3 @@
+配合day14 实现完全前后分离开发方式
+
+使用技术点：vue+vue-router+elementUI+axios
