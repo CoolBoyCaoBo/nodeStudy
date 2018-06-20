@@ -11,5 +11,12 @@
   "devDependencies": {
     "koa": "^2.5.1",
     "koa-router": "^7.4.0"
+  },
+  "dependencies": {
+    "bcrypt": "^2.0.1",
+    "glob": "^7.1.2",
+    "koa-bodyparser": "^4.2.1",
+    "koa2-cors": "^2.0.5",
+    "mongoose": "^5.1.6"
   }
 }

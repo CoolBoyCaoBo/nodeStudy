@@ -4,6 +4,7 @@ const user = require('./users/user.js');
 
 router.get('/',hello);
 
-router.get('/user',user);
+router.post('/user/register',user.register);
+router.post('/user/login',user.login);
 
 module.exports = router;
