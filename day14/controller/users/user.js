@@ -35,6 +35,9 @@ module.exports = {
                 //因为comparePassword是挂在userSchema的实例上的所以需要实例化调用
                 await new User().comparePassword(reqData.password,result.password).then((isMatch) => {
                     if(isMatch){
+                        ctx.cookies.set("token", reqData.phoneNumber, {
+                            maxAge:1000*60*60*24
+                        })
                         //返回比对结果
                         ctx.body={code:200, message:"登录成功~~~"} 
                     }else{

@@ -36,7 +36,7 @@
             },
             loginAjax() {
                 this.$http({
-                    url:"http://localhost:3000/user/login",
+                    url:"/api/login",
                     method:"post",
                     data:{
                         phoneNumber:this.phoneNumber,

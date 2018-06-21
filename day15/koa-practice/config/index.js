@@ -3,17 +3,38 @@
 // see http://vuejs-templates.github.io/webpack for documentation.
 
 const path = require('path')
-
+/****
+ * 引入node的fs文件模块系统，判断dev_poxy.js是否存在，
+ * 若存在则使用git忽略版本的dev_poxy.js的配置，
+ * 如不存在则使用默认配置
+ * code by caobo
+ * **/
+var fs = require("fs");
+var defaultproxyTableObj = {
+    proxy: { //默认为测试地址做代理
+        '/api': {
+            // 创建一个axios的对象
+            target: "http://localhost:3000/user", //设置你调用的接口域名和端口号 别忘了加http
+            changeOrigin: true,
+            pathRewrite: {
+                '^/api': '' //这里理解成用‘/api’代替target里面的地址，后面组件中我们掉接口时直接用api代替 
+                    //比如我要调用'http://thtest.log56.com/truck_home/login'，直接写‘/api/user/login’即可
+            }
+        }
+    },
+    host: 'localhost'
+};
+var proxyTableObj = fs.existsSync('./config/dev_poxy.js') ? require('./dev_poxy') : defaultproxyTableObj;
 module.exports = {
   dev: {
 
     // Paths
     assetsSubDirectory: 'static',
     assetsPublicPath: '/',
-    proxyTable: {},
+    proxyTable: proxyTableObj.proxy,
 
     // Various Dev Server settings
-    host: 'localhost', // can be overwritten by process.env.HOST
+    host: proxyTableObj.host, // can be overwritten by process.env.HOST
     port: 8080, // can be overwritten by process.env.PORT, if port is in use, a free one will be determined
     autoOpenBrowser: false,
     errorOverlay: true,
