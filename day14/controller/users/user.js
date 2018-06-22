@@ -11,15 +11,15 @@ module.exports = {
             isAdmin:reqData.isAdmin
         });
         await newUser.save().then(()=>{
-            ctx.body= {
+            ctx.send({
                 code:200,
                 msg:"注册成功！！！"
-            };
+            });
         }).catch(err =>{
-            ctx.body= {
+            ctx.send({
                 code:500,
                 msg:"注册失败："+err+""
-            };
+            });
             return ;
         })
         
@@ -39,23 +39,23 @@ module.exports = {
                             maxAge:1000*60*60*24
                         })
                         //返回比对结果
-                        ctx.body={code:200, message:"登录成功~~~"} 
+                        ctx.send({code:200, message:"登录成功~~~"});
                     }else{
-                        ctx.body={code:1000, message:"密码输入错误，请重新输入"} 
+                        ctx.send({code:1000, message:"密码输入错误，请重新输入"});
                     }
                     
                 }).catch(error => {
                     //出现异常，返回异常
                     console.log(error);
-                    ctx.body={code:500, message:error} 
+                    ctx.send({code:500, message:error}); 
                     return ;
                 })
             }else{
-                ctx.body={ code:3000, message:'输入的登录手机号不存在，请注册后再登录'}
+                ctx.send({code:3000, message:'输入的登录手机号不存在，请注册后再登录'});
             }
         }).catch((error)=>{
             console.log(error)
-            ctx.body={ code:500, message:error  }
+            ctx.send({code:500, message:error});
             return;
         })
     }

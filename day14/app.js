@@ -7,6 +7,9 @@ app.use(cors());
 const bodyParser = require('koa-bodyparser'); //客户端参数请求的解析中间件
 app.use(bodyParser()); //使用该中间件
 
+const middleware = require('./middleware'); //加载自己写的一些处理公共逻辑的中间件
+middleware(app);
+
 const {dbConect,initSchemas} = require('./database/init.js');
 
 const router = require('./router/route.js');

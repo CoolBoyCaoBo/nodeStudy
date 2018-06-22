@@ -36,8 +36,8 @@
             },
             loginAjax() {
                 this.$http({
-                    url:"/api/login",
-                    method:"post",
+                    url:"/login",
+                    iResType:1,
                     data:{
                         phoneNumber:this.phoneNumber,
                         password:this.password
