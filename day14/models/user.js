@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const bcrypt = require("bcrypt"); //引入bcrypt 对用户密码进行加盐 hash加密处理
 const SALT_WORK_FACTOR = 10;
-// const Schema = mongoose.Schema ;
+const crypto = require('crypto');
 
 //定义用户结构表 
 //定义用户的表结构
@@ -17,6 +17,10 @@ const userSchema = new mongoose.Schema({
     isAdmin:{
         type: Boolean,
         default: false
+    },
+    token:{
+        unique:true,
+        type:String
     }
 });
 
@@ -31,6 +35,14 @@ userSchema.pre('save',function(next){ //此处函数严禁使用箭头函数，�
             next();
         })
     });
+});
+
+userSchema.pre('save',function(next){ //此处函数严禁使用箭头函数，不然就报错拿不到想要的结果了
+    let hash = crypto.createHash('sha256');
+    hash.update(this.userPhoneNumber+this.password);
+    this.token = hash.digest('hex'); 
+    console.log(this.hash);
+    next();
 });
 
 // 通过methods 方法向userSchema 实例挂在方法
