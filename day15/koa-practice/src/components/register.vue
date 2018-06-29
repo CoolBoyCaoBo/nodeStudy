@@ -50,7 +50,7 @@
             regiserAjax(){
                 this.loading = true;
                 this.$http({
-                    url:"/register",
+                    url:"user/register",
                     iResType:1,
                     data:{
                         phoneNumber:this.phoneNumber,

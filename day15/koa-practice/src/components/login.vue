@@ -36,7 +36,7 @@
             },
             loginAjax() {
                 this.$http({
-                    url:"/login",
+                    url:"user/login",
                     iResType:1,
                     data:{
                         phoneNumber:this.phoneNumber,
