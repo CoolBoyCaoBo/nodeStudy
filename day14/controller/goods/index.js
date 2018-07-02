@@ -1,4 +1,5 @@
 const MongoClient = require('mongodb').MongoClient;
+const mongoose = require('mongoose');
 let dbNameUrl = "mongodb://localhost:27017";
 const findDocuments = function() {
     return new Promise((resolve,reject) => {
@@ -27,22 +28,36 @@ module.exports = {
         await findDocuments().then((result)=>{
             ctx.send({
                 code:200,
-                msg:"数据获取成功,嘻嘻嘻~~~",
+                message:"数据获取成功,嘻嘻嘻~~~",
                 data:result[0]
             });
         }).catch((error) => {
             ctx.send({
                 code:200,
-                msg:error,
+                message:error,
             });
         });
     },
     postGoodsOrder:async(ctx,next) => {
         let reqData = ctx.request.body;
-        console.log(reqData);
-        ctx.send({
-            code:200,
-            message:'提交成功~~~'
+        await next();
+        if(reqData.goodsOrderDate.length === 0 || reqData.goodsOrderAdderss.length === 0 || reqData.goodsOrderDetails.length === 0){
+            ctx.send({
+                code:503,
+                message:'提交失败，错误的参数提交~~~'
+            });
+        }   
+        let goodsOrderDetail =  mongoose.model("GoodsOrderSchema");
+        await new goodsOrderDetail(reqData).save().then(() => {
+            ctx.send({
+                code:200,
+                message:'提交成功~~~'
+            });
+        }).catch((error) =>{
+            ctx.send({
+                code:500,
+                message:'提交失败~~~'
+            });
         })
     }
 }
