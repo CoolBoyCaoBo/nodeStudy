@@ -50,7 +50,7 @@
                             message: '恭喜你，登录成功，正在进入系统首页',
                             type: 'success',
                             onClose: () => {
-                                this.$router.push({path:'/'});
+                                this.$router.push({path:'/home'});
                             }
                         });
                     }else{

@@ -72,7 +72,7 @@
                     data:{
                         phoneNumber:this.phoneNumber,
                         password:this.password,
-                        isAdmin:this.isAdminFlag === 1 ? false : true 
+                        isAdmin:this.isAdminFlag === "1" ? false : true 
                     }
                 }).then((res)=>{
                     console.log(res);

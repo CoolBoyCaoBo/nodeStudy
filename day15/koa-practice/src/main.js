@@ -19,6 +19,16 @@ Vue.config.productionTip = false
 /* eslint-disable no-new */
 new Vue({
   el: '#app',
+  created(){
+    this.$http({
+      url:'user/loginState',
+      method: 'get'
+    }).then((res)=>{
+      if(res.data.code === 200){
+        this.$router.push({path:'/home'});
+      }
+    })
+  },  
   router,
   components: { App },
   template: '<App/>'

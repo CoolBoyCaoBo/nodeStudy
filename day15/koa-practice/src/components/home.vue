@@ -3,12 +3,12 @@
         <el-container>
             <el-header style="height:60px;text-align:center;line-height:60px;background-color:#409EFF;color: #fff;font-size:24px;position:relative">
                 <div>世纪宏达经营报表系统</div>
-                <el-dropdown style="position:absolute;top: 0px;right: 6px;">
+                <el-dropdown @command="loginOut" style="position:absolute;top: 0px;right: 6px;">
                     <el-button type="primary">
-                        18579068637<i class="el-icon-arrow-down el-icon--right"></i>
+                        {{usePhoneNum}}<i class="el-icon-arrow-down el-icon--right"></i>
                     </el-button>
                     <el-dropdown-menu slot="dropdown">
-                        <el-dropdown-item>退出</el-dropdown-item>
+                        <el-dropdown-item command="1">退出</el-dropdown-item>
                     </el-dropdown-menu>
                 </el-dropdown>
             </el-header>
@@ -31,7 +31,7 @@
                             <i class="el-icon-document"></i>
                             <span slot="title">导航三</span>
                         </el-menu-item>
-                        <el-menu-item index="4">
+                        <el-menu-item index="4" v-if="userType === true">
                             <i class="el-icon-setting"></i>
                             <span slot="title">帐号管理</span>
                         </el-menu-item>
@@ -97,17 +97,50 @@ export default {
                 }
             ],
             value4:'',
-            tableData:[]
+            tableData:[],
+            userType:'',
+            usePhoneNum:''
         }
     },
     created(){
-
+        this.dataInit();
     },
     components:{
        'goodsOrderIpnut':goodsOrderIpnut,
        'register':register
     },
     methods: {
+        dataInit(){
+            this.$http({
+                url:"user/userInfo",
+                method: 'get'
+            }).then((res)=>{
+                console.log(res)
+                if(res.data.code === 200){
+                    this.usePhoneNum = res.data.data.userPhoneNum;
+                    this.userType = res.data.data.userType;
+                }
+            })
+        },
+        loginOut(command){
+            if(command === '1'){
+                this.$http({
+                    url:"user/loginOut",
+                }).then((res)=>{
+                    console.log(res)
+                    if(res.data.code === 200){
+                        this.$message({
+                            message: '退出成功，记得下次还要来哟~~~',
+                            type: 'success',
+                            onClose: () => {
+                                this.$router.push({path:'/login'});
+                            }
+                        });
+                    }
+                });
+                return false;
+            }   
+        },
         select(key,keyPath){
             this.leftIndex = Number(key);
         },

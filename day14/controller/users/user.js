@@ -58,5 +58,37 @@ module.exports = {
             ctx.send({code:500, message:error});
             return;
         })
+    },
+    loginState:async(ctx,next) => {
+        await next();
+        ctx.send({code:200, message:'该用户已处于登录状态~~~'});
+    },
+    userInfo:async(ctx,next) => {
+        let _token = ctx.cookies.get("token");
+        let User = mongoose.model("User"); //注册user表
+        await next();
+        await User.findOne({token:_token}).exec().then((result) => {
+            if(result){
+                ctx.send({
+                    code:200,
+                    message:"数据获取成功~~~",
+                    data:{
+                        userPhoneNum:result.userPhoneNumber,
+                        userType:result.isAdmin
+                    }
+                });
+            }else{
+                ctx.send({code:500, message:"该账户用户信息不存在..."});
+            }
+        }).catch((err) => {
+            ctx.send({code:502, message:"账户信息获取异常~~~"});
+        });
+    },
+    loginOut:async(ctx,next) => {
+        ctx.cookies.set("token", null ,{
+            maxAge:500
+        });
+        ctx.send({code:200, message:"退出成功~~~"});
+        await next();
     }
 }
