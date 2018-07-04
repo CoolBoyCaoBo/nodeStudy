@@ -6,6 +6,7 @@ const good = require('./goods/index.js');
 router.get('/',hello);
 
 router.get('/goods/getGoodsType',good.getGoodsType);
+router.post('/goods/getGoodsOrder',good.getGoodsOrder);
 router.post('/goods/postGoodsOrder',good.postGoodsOrder);
 
 router.post('/user/register',user.register);

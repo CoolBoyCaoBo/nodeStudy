@@ -10,9 +10,9 @@
                     <el-button type="primary" style="width:100%;margin-top:16px;" @click="loginButton" :loading="buttonLoading">登录</el-button>
                     <div class="login-links">
                         <div class="login-link-tips">忘记密码</div>
-                        <router-link to="/register">
+                        <!-- <router-link to="/register">
                             <div class="login-link-tips">注册</div>
-                        </router-link>
+                        </router-link> -->
                     </div>
                 </div>
             </div>

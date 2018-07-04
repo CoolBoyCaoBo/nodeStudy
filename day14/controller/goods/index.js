@@ -59,5 +59,30 @@ module.exports = {
                 message:'提交失败~~~'
             });
         })
+    },
+    getGoodsOrder:async(ctx,next) => {
+        let reqData = ctx.request.body;
+        // console.log(reqData);
+        await next();
+        let　goodsOrderDetail =  mongoose.model("GoodsOrderSchema");  
+        await goodsOrderDetail.find({'goodsOrderAdderss':reqData.goodsOrderAdderss},{'goodsOrderDetails':0}).exec().then((result) => {
+            if(result.length > 0){
+                ctx.send({
+                    code:200,
+                    message:'数据获取成功~~~',
+                    data:result
+                });
+            }else{
+                ctx.send({
+                    code:500,
+                    message:"该出货放暂时没有出货数据哟~~~"
+                });
+            }
+        }).catch((err) => {
+            ctx.send({
+                code:500,
+                message:err
+            });
+        })
     }
 }
